@@ -6,6 +6,7 @@ import { useSectionObserver } from '@/hooks/useSectionObserver';
 const sections = [
   { id: 'cover', label: 'Capa' },
   { id: 'summary', label: 'Resumo Financeiro' },
+  { id: 'investment-management', label: 'Gestão de Investimentos' },
   { id: 'retirement', label: 'Aposentadoria' },
   { id: 'beach-house', label: 'Imóvel' },
   { id: 'tax', label: 'Planejamento Tributário' },

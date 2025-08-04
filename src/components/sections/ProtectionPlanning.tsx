@@ -94,315 +94,134 @@ const ProtectionPlanning: React.FC<ProtectionPlanningProps> = ({ data, hideContr
           </CardContent>
         </HideableCard>
 
-        {/* Life Insurance */}
+        {/* Tabela Visual de Riscos */}
         <HideableCard
-          id="seguro-vida"
-          isVisible={isCardVisible("seguro-vida")}
-          onToggleVisibility={() => toggleCardVisibility("seguro-vida")}
-          className="mb-8"
+          id="tabela-seguros"
+          isVisible={isCardVisible("tabela-seguros")}
+          onToggleVisibility={() => toggleCardVisibility("tabela-seguros")}
+          hideControls={hideControls}
+          className="mb-10"
         >
-          <CardHeader>
-            <div className="flex items-center gap-3">
-              <CircleDollarSign className="h-8 w-8 text-accent" />
+          <CardHeader className="pb-2">
+            <div className="flex items-center justify-between">
               <div>
-                <CardTitle>{protectionData.seguroVida.titulo}</CardTitle>
-                <CardDescription>{protectionData.seguroVida.importancia}</CardDescription>
+                <CardTitle className="flex items-center gap-2">
+                  <Shield size={28} className="text-accent" />
+                  Gestão de Riscos
+                </CardTitle>
+                <CardDescription>Tabela visual de riscos sugeridos e soluções</CardDescription>
+              </div>
+              <div className="flex gap-1">
+                <button className="px-3 py-1 rounded text-xs font-semibold bg-muted text-accent-foreground border border-accent">ANUAL</button>
+                <button className="px-3 py-1 rounded text-xs font-semibold bg-muted text-muted-foreground border border-muted-foreground cursor-not-allowed opacity-60" disabled>MENSAL</button>
               </div>
             </div>
           </CardHeader>
           <CardContent>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div>
-                <div className="mb-4">
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-muted-foreground">Cobertura Recomendada</span>
-                    <span className="text-xl font-bold text-accent">{formatCurrency(protectionData.seguroVida.coberturaMinima)}</span>
-                  </div>
-                  <p className="text-sm text-muted-foreground">
-                    {protectionData.seguroVida.metodologiaCalculo}
-                  </p>
+            <div className="flex flex-col gap-6">
+              {/* Riscos em Morte */}
+              <div className="bg-white border rounded-lg shadow-sm p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="font-semibold text-base">Riscos em Morte</span>
+                  <span className="text-muted-foreground text-xs">▼</span>
                 </div>
-
-                <div className="mb-4">
-                  <h4 className="text-md font-medium mb-2">Custo Estimado</h4>
-                  <p className="text-sm text-muted-foreground">
-                    {formatCurrency(protectionData.seguroVida.custoEstimadoAnual)}
-                  </p>
-                </div>
-
-                <div className="bg-accent/10 p-3 rounded-md">
-                  <h4 className="text-sm font-medium mb-1">Prioridade</h4>
-                  <p className="text-accent font-medium">
-                    {protectionData.seguroVida.prioridadeImplementacao}
-                  </p>
+                <table className="min-w-full text-sm border-separate border-spacing-y-1">
+                  <thead className="bg-muted">
+                    <tr>
+                      <th className="px-2 py-2 text-left font-semibold">&nbsp;</th>
+                      <th className="px-2 py-2 text-right font-semibold">Capital Sugerido</th>
+                      <th className="px-2 py-2 text-right font-semibold">Apólice Atual</th>
+                      <th className="px-2 py-2 text-right font-semibold">Total de Capital Sugerido</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="bg-white hover:bg-muted/50 rounded">
+                      <td className="px-2 py-2">Custos com Inventário</td><td className="px-2 py-2 text-right">0,00</td><td className="px-2 py-2 text-right">0,00</td><td className="px-2 py-2 text-right">0,00</td>
+                    </tr>
+                    <tr className="bg-white hover:bg-muted/50 rounded">
+                      <td className="px-2 py-2">Reestabelecimento de Padrão de Vida</td><td className="px-2 py-2 text-right">0,00</td><td className="px-2 py-2 text-right">0,00</td><td className="px-2 py-2 text-right">0,00</td>
+                    </tr>
+                    <tr className="bg-white hover:bg-muted/50 rounded">
+                      <td className="px-2 py-2">Despesas com Outros Dependentes</td><td className="px-2 py-2 text-right">0,00</td><td className="px-2 py-2 text-right">0,00</td><td className="px-2 py-2 text-right">0,00</td>
+                    </tr>
+                    <tr className="bg-white hover:bg-muted/50 rounded">
+                      <td className="px-2 py-2">Despesas até a Formação dos Filhos</td><td className="px-2 py-2 text-right">0,00</td><td className="px-2 py-2 text-right">0,00</td><td className="px-2 py-2 text-right">0,00</td>
+                    </tr>
+                    <tr className="bg-white hover:bg-muted/50 rounded">
+                      <td className="px-2 py-2">Morte Acidental</td><td className="px-2 py-2 text-right">0,00</td><td className="px-2 py-2 text-right">0,00</td><td className="px-2 py-2 text-right">0,00</td>
+                    </tr>
+                    <tr className="bg-white hover:bg-muted/50 rounded">
+                      <td className="px-2 py-2">Assistência Funeral</td><td className="px-2 py-2 text-right">0,00</td><td className="px-2 py-2 text-right">0,00</td><td className="px-2 py-2 text-right">0,00</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div className="mt-4">
+                  <span className="font-semibold text-sm mb-1 block">Soluções Sugeridas</span>
+                  <table className="min-w-full text-sm border-separate border-spacing-y-1">
+                    <thead className="bg-muted">
+                      <tr>
+                        <th className="px-2 py-2 text-left font-semibold">&nbsp;</th>
+                        <th className="px-2 py-2 text-right font-semibold">MAG</th>
+                        <th className="px-2 py-2 text-right font-semibold">Prudential</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="bg-white hover:bg-muted/50 rounded"><td className="px-2 py-2">&nbsp;</td><td className="px-2 py-2 text-right">0,00</td><td className="px-2 py-2 text-right">0,00</td></tr>
+                      <tr className="bg-white hover:bg-muted/50 rounded"><td className="px-2 py-2">&nbsp;</td><td className="px-2 py-2 text-right">0,00</td><td className="px-2 py-2 text-right">0,00</td></tr>
+                      <tr className="bg-white hover:bg-muted/50 rounded"><td className="px-2 py-2">&nbsp;</td><td className="px-2 py-2 text-right">0,00</td><td className="px-2 py-2 text-right">0,00</td></tr>
+                      <tr className="bg-white hover:bg-muted/50 rounded"><td className="px-2 py-2">&nbsp;</td><td className="px-2 py-2 text-right">0,00</td><td className="px-2 py-2 text-right">0,00</td></tr>
+                      <tr className="bg-white hover:bg-muted/50 rounded"><td className="px-2 py-2">&nbsp;</td><td className="px-2 py-2 text-right">0,00</td><td className="px-2 py-2 text-right">0,00</td></tr>
+                      <tr className="bg-white hover:bg-muted/50 rounded"><td className="px-2 py-2">&nbsp;</td><td className="px-2 py-2 text-right">0,00</td><td className="px-2 py-2 text-right">0,00</td></tr>
+                      <tr className="bg-white hover:bg-muted/50 rounded font-bold"><td className="px-2 py-2">Total</td><td className="px-2 py-2 text-right">0,00</td><td className="px-2 py-2 text-right">0,00</td></tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
-
-              <div>
-                <h4 className="text-md font-medium mb-3">Coberturas</h4>
-                <ul className="space-y-2">
-                  {Array.isArray(protectionData?.seguroVida?.coberturas) && protectionData.seguroVida.coberturas.map((cobertura: string, index: number) => (
-                    <li key={index} className="flex items-center justify-between border-b pb-2">
-                      <span>{cobertura}</span>
-                    </li>
-                  ))}
-                </ul>
+              {/* Riscos em Vida */}
+              <div className="bg-white border rounded-lg shadow-sm p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="font-semibold text-base">Riscos em Vida</span>
+                  <span className="text-muted-foreground text-xs">▼</span>
+                </div>
+                <table className="min-w-full text-sm border-separate border-spacing-y-1">
+                  <thead className="bg-muted">
+                    <tr>
+                      <th className="px-2 py-2 text-left font-semibold">&nbsp;</th>
+                      <th className="px-2 py-2 text-right font-semibold">Capital Sugerido</th>
+                      <th className="px-2 py-2 text-right font-semibold">Apólice Atual</th>
+                      <th className="px-2 py-2 text-right font-semibold">Total de Capital Sugerido</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="bg-white hover:bg-muted/50 rounded"><td className="px-2 py-2">Necessidades por Invalidez</td><td className="px-2 py-2 text-right">0,00</td><td className="px-2 py-2 text-right">0,00</td><td className="px-2 py-2 text-right">0,00</td></tr>
+                    <tr className="bg-white hover:bg-muted/50 rounded"><td className="px-2 py-2">Renda Diária por Incapacidade</td><td className="px-2 py-2 text-right">0,00</td><td className="px-2 py-2 text-right">0,00</td><td className="px-2 py-2 text-right">0,00</td></tr>
+                    <tr className="bg-white hover:bg-muted/50 rounded"><td className="px-2 py-2">Doenças Graves</td><td className="px-2 py-2 text-right">0,00</td><td className="px-2 py-2 text-right">0,00</td><td className="px-2 py-2 text-right">0,00</td></tr>
+                  </tbody>
+                </table>
+                <div className="mt-4">
+                  <span className="font-semibold text-sm mb-1 block">Soluções Sugeridas</span>
+                  <table className="min-w-full text-sm border-separate border-spacing-y-1">
+                    <thead className="bg-muted">
+                      <tr>
+                        <th className="px-2 py-2 text-left font-semibold">&nbsp;</th>
+                        <th className="px-2 py-2 text-right font-semibold">MAG</th>
+                        <th className="px-2 py-2 text-right font-semibold">Prudential</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="bg-white hover:bg-muted/50 rounded"><td className="px-2 py-2">&nbsp;</td><td className="px-2 py-2 text-right">0,00</td><td className="px-2 py-2 text-right">0,00</td></tr>
+                      <tr className="bg-white hover:bg-muted/50 rounded"><td className="px-2 py-2">&nbsp;</td><td className="px-2 py-2 text-right">0,00</td><td className="px-2 py-2 text-right">0,00</td></tr>
+                      <tr className="bg-white hover:bg-muted/50 rounded font-bold"><td className="px-2 py-2">Total</td><td className="px-2 py-2 text-right">0,00</td><td className="px-2 py-2 text-right">0,00</td></tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </CardContent>
         </HideableCard>
-
-        {/* Property Insurance */}
-        <HideableCard
-          id="seguro-patrimonial"
-          isVisible={isCardVisible("seguro-patrimonial")}
-          onToggleVisibility={() => toggleCardVisibility("seguro-patrimonial")}
-          className="mb-8"
-        >
-          <CardHeader>
-            <div className="flex items-center gap-3">
-              <Briefcase className="h-8 w-8 text-accent" />
-              <div>
-                <CardTitle>{protectionData.seguroPatrimonial.titulo}</CardTitle>
-                <CardDescription>{protectionData.seguroPatrimonial.importancia}</CardDescription>
-              </div>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div>
-                <div className="mb-4">
-                  <div className="flex flex-col mb-2">
-                    <div className="flex justify-between items-center">
-                      <span className="text-muted-foreground">Bens Imóveis</span>
-                      <span className="font-medium">{formatCurrency(protectionData.seguroPatrimonial.bensImoveis)}</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-muted-foreground">Adicional (bens móveis)</span>
-                      <span className="font-medium">{formatCurrency(protectionData.seguroPatrimonial.adicional)}</span>
-                    </div>
-                    <Separator className="my-2" />
-                    <div className="flex justify-between items-center">
-                      <span className="text-muted-foreground">Cobertura Total</span>
-                      <span className="text-xl font-bold text-accent">{formatCurrency(protectionData.seguroPatrimonial.coberturaRecomendada)}</span>
-                    </div>
-                  </div>
-
-                  <div className="mb-4">
-                    <h4 className="text-md font-medium mb-2">Custo Estimado</h4>
-                    <p className="text-sm text-muted-foreground">
-                      {formatCurrency(protectionData.seguroPatrimonial.custoEstimadoAnual)}
-                    </p>
-                  </div>
-
-                  <div className="bg-accent/10 p-3 rounded-md">
-                    <h4 className="text-sm font-medium mb-1">Prioridade</h4>
-                    <p className="text-accent font-medium">
-                      {protectionData.seguroPatrimonial.prioridadeImplementacao}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <h4 className="text-md font-medium mb-3">Riscos Protegidos</h4>
-                <ul className="space-y-2">
-                  {Array.isArray(protectionData?.seguroPatrimonial?.riscosProtegidos) && protectionData.seguroPatrimonial.riscosProtegidos.map((risco: string, index: number) => (
-                    <li key={index} className="flex items-center gap-2">
-                      <Shield className="h-4 w-4 text-accent" />
-                      <span>{risco}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </CardContent>
-        </HideableCard>
-
-        {/* D&O Insurance and Travel Insurance (Two Column Layout) */}
-        <div className="grid md:grid-cols-2 gap-6 mb-8">
-          {/* D&O Insurance */}
-          <HideableCard
-            id="seguro-do"
-            isVisible={isCardVisible("seguro-do")}
-            onToggleVisibility={() => toggleCardVisibility("seguro-do")}
-            className="h-full"
-          >
-            <CardHeader>
-              <div className="flex items-center gap-3">
-                <Umbrella className="h-8 w-8 text-accent" />
-                <div>
-                  <CardTitle>{protectionData.seguroDO.titulo}</CardTitle>
-                  <CardDescription>{protectionData.seguroDO.descricao}</CardDescription>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="mb-4">
-                <div className="flex justify-between items-center mb-2">
-                  <span className="text-muted-foreground">Cobertura Recomendada</span>
-                  <span className="text-xl font-bold text-accent">{formatCurrency(protectionData.seguroDO.coberturaMinima)}</span>
-                </div>
-                <p className="text-sm text-muted-foreground">
-                  {protectionData.seguroDO.justificativa}
-                </p>
-              </div>
-
-              <div className="mb-4">
-                <h4 className="text-md font-medium mb-2">Riscos Cobertos</h4>
-                <ul className="space-y-2">
-                  {Array.isArray(protectionData?.seguroDO?.riscosCobertos) && protectionData.seguroDO.riscosCobertos.map((risco: string, index: number) => (
-                    <li key={index} className="flex items-center gap-2">
-                      <Shield className="h-4 w-4 text-accent" />
-                      <span>{risco}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="mt-4">
-                <p className="text-sm text-muted-foreground mb-2">
-                  <span className="font-medium">Custo estimado: </span>
-                  {formatCurrency(protectionData.seguroDO.custoEstimadoAnual)}
-                </p>
-                <p className="text-sm text-accent font-medium">
-                  <span className="font-medium">Prioridade: </span>
-                  {protectionData.seguroDO.prioridadeImplementacao}
-                </p>
-              </div>
-            </CardContent>
-          </HideableCard>
-
-          {/* Travel Insurance */}
-          <HideableCard
-            id="seguro-viagem"
-            isVisible={isCardVisible("seguro-viagem")}
-            onToggleVisibility={() => toggleCardVisibility("seguro-viagem")}
-            className="h-full"
-          >
-            <CardHeader>
-              <div className="flex items-center gap-3">
-                <Plane className="h-8 w-8 text-accent" />
-                <div>
-                  <CardTitle>{protectionData.seguroInternacional.titulo}</CardTitle>
-                  <CardDescription>{protectionData.seguroInternacional.consideracoes}</CardDescription>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="mb-4">
-                <div className="flex justify-between items-center mb-1">
-                  <span className="text-muted-foreground">Cobertura Médica</span>
-                  <span className="font-medium">{protectionData.seguroInternacional.coberturaMedica}</span>
-                </div>
-                <div className="flex justify-between items-center mb-2">
-                  <span className="text-muted-foreground">Cobertura Patrimonial</span>
-                  <span className="font-medium">{protectionData.seguroInternacional.coberturaPatrimonial}</span>
-                </div>
-              </div>
-
-              <div className="mb-4">
-                <h4 className="text-md font-medium mb-2">Riscos Cobertos</h4>
-                <ul className="space-y-2">
-                  {Array.isArray(protectionData?.seguroInternacional?.riscosCobertos) && protectionData.seguroInternacional.riscosCobertos.map((risco: string, index: number) => (
-                    <li key={index} className="flex items-center gap-2">
-                      <Shield className="h-4 w-4 text-accent" />
-                      <span>{risco}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="mt-4">
-                <p className="text-sm text-muted-foreground mb-2">
-                  <span className="font-medium">Custo estimado: </span>
-                  {formatCurrency(protectionData.seguroInternacional.custoEstimadoAnual)}
-                </p>
-                <p className="text-sm text-accent font-medium">
-                  <span className="font-medium">Prioridade: </span>
-                  {protectionData.seguroInternacional.prioridadeImplementacao}
-                </p>
-              </div>
-            </CardContent>
-          </HideableCard>
-        </div>
 
         {/* Legal Protection */}
-        <HideableCard
-          id="protecao-juridica"
-          isVisible={isCardVisible("protecao-juridica")}
-          onToggleVisibility={() => toggleCardVisibility("protecao-juridica")}
-          className="mb-8"
-        >
-          <CardHeader>
-            <div className="flex items-center gap-3">
-              <FileText className="h-8 w-8 text-accent" />
-              <div>
-                <CardTitle>{protectionData?.protecaoJuridica?.titulo}</CardTitle>
-                <CardDescription>{protectionData?.protecaoJuridica?.descricao}</CardDescription>
-              </div>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="grid md:grid-cols-2 gap-6">
-              {/* Holding */}
-              <div className="border rounded-lg p-4">
-                <h4 className="text-lg font-medium mb-2">{protectionData?.protecaoJuridica?.holdingPatrimonial?.titulo}</h4>
-                <p className="text-sm text-muted-foreground mb-3">
-                  {protectionData?.protecaoJuridica?.holdingPatrimonial?.finalidade}
-                </p>
-
-                <div className="flex justify-between items-center mb-3">
-                  <span className="text-muted-foreground">Custo Estimado</span>
-                  <span className="font-medium">{formatCurrency(protectionData?.protecaoJuridica?.holdingPatrimonial?.custoEstimado)}</span>
-                </div>
-
-                <div className="flex justify-between items-center mb-4">
-                  <span className="text-muted-foreground">Tempo de Implementação</span>
-                  <span className="font-medium">{protectionData?.protecaoJuridica?.holdingPatrimonial?.tempoImplementacao}</span>
-                </div>
-
-                <h5 className="text-sm font-medium mb-2">Vantagens Adicionais</h5>
-                <ul className="space-y-1">
-                  {Array.isArray(protectionData?.protecaoJuridica?.holdingPatrimonial?.vantagensAdicionais) && protectionData.protecaoJuridica.holdingPatrimonial.vantagensAdicionais.map((vantagem: string, index: number) => (
-                    <li key={index} className="text-sm flex items-start gap-2">
-                      <div className="mt-1 min-w-3 h-3 w-3 rounded-full bg-accent" />
-                      <span>{vantagem}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Mandato Duradouro */}
-              <div className="border rounded-lg p-4">
-                <h4 className="text-lg font-medium mb-2">{protectionData?.protecaoJuridica?.mandatoDuradouro?.titulo}</h4>
-                <p className="text-sm text-muted-foreground mb-3">
-                  {protectionData?.protecaoJuridica?.mandatoDuradouro?.descricao}
-                </p>
-
-                <div className="flex justify-between items-center mb-3">
-                  <span className="text-muted-foreground">Custo Estimado</span>
-                  <span className="font-medium">{formatCurrency(protectionData?.protecaoJuridica?.mandatoDuradouro?.custoEstimado)}</span>
-                </div>
-
-                <div className="flex justify-between items-center mb-4">
-                  <span className="text-muted-foreground">Prioridade</span>
-                  <span className="font-medium">{protectionData?.protecaoJuridica?.mandatoDuradouro?.prioridadeImplementacao}</span>
-                </div>
-
-                <h5 className="text-sm font-medium mb-2">Benefícios</h5>
-                <ul className="space-y-1">
-                  {Array.isArray(protectionData?.protecaoJuridica?.mandatoDuradouro?.beneficios) && protectionData.protecaoJuridica.mandatoDuradouro.beneficios.map((beneficio: string, index: number) => (
-                    <li key={index} className="text-sm flex items-start gap-2">
-                      <div className="mt-1 min-w-3 h-3 w-3 rounded-full bg-accent" />
-                      <span>{beneficio}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </CardContent>
-        </HideableCard>
+        {/* Removido conforme solicitado */}
 
         {/* Additional Recommendations */}
         <HideableCard

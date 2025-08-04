@@ -5,6 +5,7 @@ import { SectionVisibilityProvider } from '@/context/SectionVisibilityContext';
 import Header from '@/components/layout/Header';
 import CoverPage from '@/components/sections/CoverPage';
 import FinancialSummary from '@/components/sections/FinancialSummary';
+import InvestmentManagement from '@/components/sections/InvestmentManagement';
 import RetirementPlanning from '@/components/sections/RetirementPlanning';
 import BeachHouse from '@/components/sections/BeachHouse';
 import TaxPlanning from '@/components/sections/TaxPlanning';
@@ -128,7 +129,40 @@ const IndexPage: React.FC<IndexPageProps> = ({ accessor, clientPropect }) => {
       conclusao: userReports?.planoAcao?.conclusao || {}
     },
     imovelDesejado: userReports?.imovelDesejado || {},
-    scoreFinanceiro: userReports?.scoreFinanceiro || {}
+    scoreFinanceiro: userReports?.scoreFinanceiro || {},
+    investimentos: {
+      investimentosAtuais: userReports?.investimentos?.atuais || [
+        { tipo: 'Tesouro Direto', valor: 300000, percentual: 35, risco: 'Baixo', liquidez: 'Alta', rentabilidade: 0.115 },
+        { tipo: 'CDB', valor: 200000, percentual: 23, risco: 'Baixo', liquidez: 'Alta', rentabilidade: 0.125 },
+        { tipo: 'Ações', valor: 180000, percentual: 21, risco: 'Alto', liquidez: 'Média', rentabilidade: 0.18 },
+        { tipo: 'Fundos Imobiliários', valor: 120000, percentual: 14, risco: 'Médio', liquidez: 'Baixa', rentabilidade: 0.15 },
+        { tipo: 'Previdência', valor: 60000, percentual: 7, risco: 'Baixo', liquidez: 'Baixa', rentabilidade: 0.13 }
+      ],
+      sugestaoAltaVista: userReports?.investimentos?.sugestao || [
+        { tipo: 'Tesouro Direto', valor: 250000, percentual: 29, risco: 'Baixo', liquidez: 'Alta', rentabilidade: 0.12 },
+        { tipo: 'CDB', valor: 150000, percentual: 17, risco: 'Baixo', liquidez: 'Alta', rentabilidade: 0.13 },
+        { tipo: 'Ações', valor: 220000, percentual: 25, risco: 'Alto', liquidez: 'Média', rentabilidade: 0.20 },
+        { tipo: 'Fundos Imobiliários', valor: 100000, percentual: 12, risco: 'Médio', liquidez: 'Baixa', rentabilidade: 0.16 },
+        { tipo: 'Internacional', valor: 80000, percentual: 9, risco: 'Médio', liquidez: 'Média', rentabilidade: 0.17 },
+        { tipo: 'Fundos de Investimento', valor: 70000, percentual: 8, risco: 'Médio', liquidez: 'Média', rentabilidade: 0.16 }
+      ],
+      perfilInvestidor: userReports?.perfil_investidor || 'Moderado',
+      scoreDiversificacao: userReports?.investimentos?.scoreDiversificacao || 65,
+      scoreRisco: userReports?.investimentos?.scoreRisco || 70,
+      scoreLiquidez: userReports?.investimentos?.scoreLiquidez || 75,
+      recomendacoes: userReports?.investimentos?.recomendacoes || [
+        'Aumentar exposição a ativos internacionais para melhorar a diversificação geográfica',
+        'Reduzir concentração em renda fixa e aumentar alocação em renda variável para melhor retorno',
+        'Considerar fundos de investimento especializados para otimizar a gestão de risco',
+        'Implementar estratégia de rebalanceamento trimestral para manter a alocação alvo',
+        'Diversificar entre diferentes emissores de CDB para reduzir risco de crédito'
+      ],
+      impactoEsperado: userReports?.investimentos?.impactoEsperado || {
+        rentabilidadeEsperada: 2.8,
+        reducaoRisco: 18,
+        melhoriaLiquidez: 12
+      }
+    }
   });
 
   useEffect(() => {
@@ -188,6 +222,30 @@ const IndexPage: React.FC<IndexPageProps> = ({ accessor, clientPropect }) => {
     );
   }
 
+  // Garantir dados fictícios para imovelDesejado se não houver dados reais
+  const fakeImovelDesejado = {
+    objetivo: {
+      tipo: 'Apartamento',
+      localizacao: 'São Paulo',
+      valorImovel: 600000,
+      prazoDesejado: '5 anos',
+    },
+    vantagens: ['Sem aluguel', 'Valorização do imóvel'],
+    desvantagens: ['Comprometimento de renda', 'Taxas e impostos'],
+    impactoFinanceiro: {
+      parcela: 3500,
+      observacao: 'Parcela estimada para financiamento bancário',
+      excedenteMensalApos: 1500,
+      excedenteMensalAtual: 5000,
+    },
+    estrategiaRecomendada: 'Financiamento Bancário',
+    comparativoEstrategias: [
+      { estrategia: 'Financiamento Bancário', parcelaMensal: 3500, totalPago: 700000, tempoContemplacao: 'Imediato' },
+      { estrategia: 'Consórcio', parcelaMensal: 2500, totalPago: 650000, tempoContemplacao: '3 anos' },
+    ],
+  };
+  const beachHouseData = userReports && userReports.imovelDesejado ? userReports : { ...(userReports || {}), imovelDesejado: fakeImovelDesejado };
+
   return (
     <ThemeProvider>
       <CardVisibilityProvider>
@@ -203,12 +261,16 @@ const IndexPage: React.FC<IndexPageProps> = ({ accessor, clientPropect }) => {
                 <FinancialSummary data={getClientData().financas} hideControls={clientPropect} />
               </HideableSection>
               
+              <HideableSection sectionId="investment-management" hideControls={clientPropect}>
+                <InvestmentManagement data={getClientData().investimentos} hideControls={clientPropect} />
+              </HideableSection>
+              
               <HideableSection sectionId="retirement" hideControls={clientPropect}>
                 <RetirementPlanning data={getClientData().aposentadoria} hideControls={clientPropect} />
               </HideableSection>
               
               <HideableSection sectionId="beach-house" hideControls={clientPropect}>
-                <BeachHouse data={userReports} hideControls={clientPropect} />
+                <BeachHouse data={beachHouseData} hideControls={clientPropect} />
               </HideableSection>
               
               <HideableSection sectionId="tax" hideControls={clientPropect}>

@@ -8,6 +8,7 @@ import { CardVisibilityProvider } from "./context/CardVisibilityContext";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
+import BeachHouse from './components/sections/BeachHouse';
 
 const queryClient = new QueryClient();
 

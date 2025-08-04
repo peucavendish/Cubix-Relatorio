@@ -21,6 +21,12 @@ const SECTIONS_CONFIG = [
     icon: "📊"
   },
   {
+    id: "investment-management",
+    label: "Gestão de Investimentos",
+    description: "Comparação de investimentos atuais vs. sugestões",
+    icon: "📈"
+  },
+  {
     id: "retirement",
     label: "Aposentadoria",
     description: "Planejamento para aposentadoria",

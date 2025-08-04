@@ -70,6 +70,15 @@ export default {
 					info: '#0353A4',
 					highlight: '#FFC971',
 					muted: '#9CA3AF'
+				},
+				// Investment management specific colors
+				investment: {
+					primary: '#6366F1',
+					success: '#10B981',
+					warning: '#F59E0B',
+					danger: '#EF4444',
+					info: '#3B82F6',
+					accent: '#8B5CF6'
 				}
 			},
 			borderRadius: {

@@ -56,7 +56,7 @@ const CoverPage: React.FC<CoverPageProps> = ({
         >
           <div className="mb-2 inline-block">
             <div className="text-sm font-medium text-accent mb-2 tracking-wider">
-              ALTA VISTA INVESTIMENTOS
+              UNIVALORES
             </div>
             <h1 className="text-5xl font-bold mb-2">Planejamento Financeiro</h1>
             <p className="text-muted-foreground">
