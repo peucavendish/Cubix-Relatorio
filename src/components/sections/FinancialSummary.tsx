@@ -16,7 +16,7 @@ interface FinanceSummary {
   despesasMensais: number;
   composicaoPatrimonial: Record<string, number>;
   ativos: Array<{ tipo: string; valor: number; classe?: string }>;
-  passivos: Array<{ tipo: string; valor: number }>;
+  passivos: Array<{ tipo: string; saldo_devedor: number }>;
 }
 
 interface FinancialSummaryProps {
@@ -63,7 +63,7 @@ const FinancialSummary: React.FC<FinancialSummaryProps> = ({ data, hideControls 
 
   // Calculate total assets and liabilities
   const totalAssets = data.ativos.reduce((sum, asset) => sum + asset.valor, 0);
-  const totalLiabilities = data.passivos.reduce((sum, liability) => sum + liability.valor, 0);
+  const totalLiabilities = data.passivos.reduce((sum, liability) => sum + liability.saldo_devedor, 0);
 
   // Calculate total composition for normalization
   // Soma todos os valores da composição patrimonial
@@ -291,16 +291,16 @@ const FinancialSummary: React.FC<FinancialSummaryProps> = ({ data, hideControls 
                       <div key={index} className="flex justify-between items-center">
                         <span>{liability.tipo}</span>
                         <div className="flex items-center gap-2">
-                          <span className="font-medium">{formatCurrency(liability.valor)}</span>
+                          <span className="font-medium">{formatCurrency(liability.saldo_devedor > 0 ? liability.saldo_devedor : 0)}</span>
                           <span className="text-xs text-muted-foreground">
-                            ({totalLiabilities > 0 ? Math.round((liability.valor / totalLiabilities) * 100) : 0}%)
+                            ({totalLiabilities > 0 ? Math.round((liability.saldo_devedor / totalLiabilities) * 100) : 0}%)
                           </span>
                         </div>
                       </div>
                     ))}
                     <div className="pt-4 border-t border-border flex justify-between items-center">
                       <span className="font-semibold">Total de Passivos</span>
-                      <span className="font-semibold">{formatCurrency(totalLiabilities)}</span>
+                      <span className="font-semibold">{formatCurrency(totalLiabilities > 0 ? totalLiabilities : 0)}</span>
                     </div>
                   </div>
                 ) : (
@@ -335,13 +335,13 @@ const FinancialSummary: React.FC<FinancialSummaryProps> = ({ data, hideControls 
               <div className="text-center">
                 <h3 className="text-muted-foreground text-sm mb-1">Total de passivos</h3>
                 <div className="text-3xl font-bold mb-1">
-                  {formatCurrency(data.passivos.reduce((sum, liability) => sum + liability.valor, 0))}
+                  {formatCurrency(data.passivos.reduce((sum, liability) => sum + liability.saldo_devedor, 0))}
                 </div>
               </div>
               <div className="text-center">
                 <h3 className="text-muted-foreground text-sm mb-1">Patrimônio Líquido</h3>
                 <div className="text-3xl font-bold mb-1">
-                  {formatCurrency(data.ativos.reduce((sum, asset) => sum + asset.valor, 0) - data.passivos.reduce((sum, liability) => sum + liability.valor, 0))}
+                  {formatCurrency(data.ativos.reduce((sum, asset) => sum + asset.valor, 0) - data.passivos.reduce((sum, liability) => sum + liability.saldo_devedor, 0))}
                 </div>
               </div>
             </div>

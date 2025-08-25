@@ -159,10 +159,10 @@ const TaxPlanning: React.FC<TaxPlanningProps> = ({ data, hideControls }) => {
                 {Array.isArray(tributario?.deducoes) && tributario.deducoes.map((deducao: any, index: number) => (
                   <li key={index} className="border-b border-border/50 last:border-0 py-2">
                     <div className="flex justify-between mb-1">
-                      <span className="font-medium">{deducao.tipo}</span>
-                      <span className="text-financial-success">{formatCurrency(deducao.valor)} </span>
+                      <span className="font-medium">{deducao}</span>
+                      {/* <span className="text-financial-success">{formatCurrency(deducao.valor)} </span> */}
                     </div>
-                    <p className="text-sm text-muted-foreground">{deducao.beneficio}</p>
+                    {/* <p className="text-sm text-muted-foreground">{deducao.beneficio}</p> */}
                   </li>
                 ))}
               </ul>
@@ -193,22 +193,22 @@ const TaxPlanning: React.FC<TaxPlanningProps> = ({ data, hideControls }) => {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Tipo</TableHead>
-                    <TableHead>Limite</TableHead>
-                    <TableHead>Tributação</TableHead>
+                    <TableHead>Investimento</TableHead>
+                    {/* <TableHead>Limite</TableHead>
+                    <TableHead>Tributação</TableHead> */}
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {Array.isArray(tributario?.investimentosIsentos) && tributario.investimentosIsentos.map((investimento: { tipo: string; valor: number; isencao: string }, index: number) => (
+                  {Array.isArray(tributario?.investimentosIsentos) && tributario.investimentosIsentos.map((investimento, index: number) => (
                     <TableRow key={index}>
-                      <TableCell className="font-medium">{investimento.tipo}</TableCell>
-                      <TableCell>{formatCurrency(investimento.valor)}</TableCell>
-                      <TableCell>
+                      <TableCell className="font-medium">{investimento}</TableCell>
+                      {/* <TableCell>{formatCurrency(investimento.valor)}</TableCell> */}
+                      {/* <TableCell>
                         <StatusChip
                           status="success"
                           label={investimento.isencao}
                         />
-                      </TableCell>
+                      </TableCell> */}
                     </TableRow>
                   ))}
                 </TableBody>

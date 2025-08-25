@@ -162,7 +162,9 @@ const IndexPage: React.FC<IndexPageProps> = ({ accessor, clientPropect }) => {
         reducaoRisco: 18,
         melhoriaLiquidez: 12
       }
-    }
+    },
+    previdencia_privada: userReports?.previdencia_privada || {},
+    
   });
 
   useEffect(() => {
