@@ -201,14 +201,14 @@ const TaxPlanning: React.FC<TaxPlanningProps> = ({ data, hideControls }) => {
                 <TableBody>
                   {Array.isArray(tributario?.investimentosIsentos) && tributario.investimentosIsentos.map((investimento, index: number) => (
                     <TableRow key={index}>
-                      <TableCell className="font-medium">{investimento}</TableCell>
-                      {/* <TableCell>{formatCurrency(investimento.valor)}</TableCell> */}
-                      {/* <TableCell>
+                      <TableCell className="font-medium">{investimento.tipo}</TableCell>
+                      <TableCell>{formatCurrency(investimento.valor)}</TableCell>
+                      <TableCell>
                         <StatusChip
                           status="success"
                           label={investimento.isencao}
                         />
-                      </TableCell> */}
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
